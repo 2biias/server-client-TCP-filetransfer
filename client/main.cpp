@@ -93,6 +93,7 @@ int main(int argc, char const *argv[])
             bytes_left=bytes_left-bytes;
         }
         ofs.close();
+        std::cout << "Filed recieved as 'myFile' in calling path: " << fileplacement << std::endl;
     }
 
     close(socketfd);
