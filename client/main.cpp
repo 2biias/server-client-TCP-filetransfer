@@ -78,7 +78,7 @@ int main(int argc, char const *argv[])
         int bytes_left = std::stoi(reply);
         int bytes = 0;
         const int CHUNKSIZE = 1000;
-        std::vector<char> filebuffer(CHUNKSIZE+1, 0);
+        std::vector<char> filebuffer(CHUNKSIZE, 0);
         std::ofstream ofs;
         std::string fileplacement = get_current_dir_name();
         fileplacement.append("/myFile");
@@ -90,6 +90,7 @@ int main(int argc, char const *argv[])
         while(bytes_left > 0){
             bytes = read(socketfd, filebuffer.data(), CHUNKSIZE);
             ofs.write(filebuffer.data(), bytes);
+            std::cout << "Bytes received: " << bytes << std::endl;
             bytes_left=bytes_left-bytes;
         }
         ofs.close();
