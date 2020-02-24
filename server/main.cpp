@@ -71,7 +71,7 @@ int main(int argc, char* argv[])
 
             //Sending file in 1000 byte chunks
             const int CHUNKSIZE = 1000;
-            std::vector<char> filebuffer(CHUNKSIZE+1, 0);
+            std::vector<char> filebuffer(CHUNKSIZE, 0);
             std::ifstream ifile(request, std::ifstream::binary);
 
             //Until requested file ends
@@ -79,7 +79,6 @@ int main(int argc, char* argv[])
                 ifile.read(filebuffer.data(), CHUNKSIZE);
                 //If file at end, get read size with gcount, else it must be chunksize
                 std::streamsize size = ((ifile)? CHUNKSIZE: ifile.gcount());
-                filebuffer[size] = 0;
                 std::cout << "Sending " << size << "Bytes" << std::endl;
                 send(connected_fd, filebuffer.data(), size, 0);
                 //If file at end, break
@@ -87,6 +86,7 @@ int main(int argc, char* argv[])
                     break;
             }
         }else{
+            std::cout << "Client requested nonvalid file" << std::endl;
             std::string reply = "No such file could be accessed";
             send(connected_fd, reply.c_str(), reply.length()+1, 0);
         }
