@@ -32,8 +32,7 @@ int main(int argc, char const *argv[])
     }
 
     //Setting port number, socketfd, host entry and address struct
-    int portno = atoi(argv[2]), socketfd = 0, n=0, err;
-    struct hostent *server;
+    int portno = atoi(argv[2]), socketfd = 0, n=0;
     struct sockaddr_in server_address;
 
     //Retrieving socket file-descriptor
